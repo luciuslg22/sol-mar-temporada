@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta
+      name="theme-color"
+      content="#142c3e"
+    />
+
+    <meta
+      name="description"
+      content="Encontre sua hospedagem ideal em Santos com a Sol & Mar Temporada. Conheça nossas acomodações e reserve pelo Airbnb."
+    />
+
+    <meta
+      name="robots"
+      content="index, follow"
+    />
+
+    <title>Sol & Mar - Temporada</title>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual'
+      }
+
+      if (window.location.pathname === '/') {
+        if (window.location.hash) {
+          history.replaceState(history.state, '', '/')
+        }
+
+        window.scrollTo(0, 0)
+
+        window.addEventListener('load', () => {
+          window.scrollTo(0, 0)
+        }, { once: true })
+      }
+
+      let atualizacaoEmAndamento = false
+
+      document.addEventListener('keydown', (evento) => {
+        if (evento.key !== 'F5') return
+
+        if (
+          evento.ctrlKey ||
+          evento.altKey ||
+          evento.metaKey
+        ) return
+
+        if (
+          window.location.pathname !== '/' ||
+          window.scrollY <= 5 ||
+          atualizacaoEmAndamento
+        ) return
+
+        evento.preventDefault()
+
+        atualizacaoEmAndamento = true
+
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        })
+
+        const inicio = performance.now()
+
+        const verificarRolagem = () => {
+          const tempoDecorrido = performance.now() - inicio
+
+          if (
+            window.scrollY <= 5 ||
+            tempoDecorrido >= 2500
+          ) {
+            window.location.reload()
+            return
+          }
+
+          requestAnimationFrame(verificarRolagem)
+        }
+
+        requestAnimationFrame(verificarRolagem)
+      })
+    </script>
+  </head>
+
+  <body>
+    <div id="root"></div>
+
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
